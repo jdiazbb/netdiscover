@@ -29,6 +29,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <time.h>
+#include <syslog.h>
 
 #include <arpa/inet.h>
 

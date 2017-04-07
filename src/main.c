@@ -35,6 +35,7 @@
 #include <sys/types.h>
 #include <signal.h>
 #include <string.h>
+#include <syslog.h>
 
 #include "ifaces.h"
 #include "screen.h"
@@ -295,6 +296,10 @@ int main(int argc, char **argv)
    if ((flag_scan_range != 1) && (flag_passive_mode != 1))
       flag_auto_scan = 1;
 
+   /* Setup syslog */
+   setlogmask (LOG_UPTO (LOG_NOTICE));
+   openlog ("netdiscover", LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
+
    /* Start the execution */
    if (parsable_output) {
 
@@ -322,6 +327,8 @@ int main(int argc, char **argv)
 
    if(datos.pcap_filter != NULL)
 	   free(datos.pcap_filter);
+
+   closelog();
 
    return 0;
 }
