@@ -131,12 +131,14 @@ void process_packet(u_char *args, struct pcap_pkthdr* pkthdr,
       if (memcmp(type, ARP_REPLY, 2) == 0) {
          new_reg->type = 2;             /* Arp Type */
          pthread_mutex_lock(data_access);
+         syslog(LOG_INFO,"|ARP Reply|%02x:%02x:%02x:%02x:%02x:%02x|%s",new_header->smac[0],new_header->smac[1],new_header->smac[2],new_header->smac[3],new_header->smac[4],new_header->smac[5],new_reg->sip);
          _data_reply.add_registry(new_reg);
          pthread_mutex_unlock(data_access);
 
       } else if (memcmp(type, ARP_REQUEST, 2) == 0) {
          new_reg->type = 1;             /* Arp Type */
          pthread_mutex_lock(data_access);
+         syslog(LOG_INFO,"|ARP Request|%02x:%02x:%02x:%02x:%02x:%02x|%s",new_header->smac[0],new_header->smac[1],new_header->smac[2],new_header->smac[3],new_header->smac[4],new_header->smac[5],new_reg->sip);
          _data_request.add_registry(new_reg);
          pthread_mutex_unlock(data_access);
 

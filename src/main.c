@@ -297,7 +297,6 @@ int main(int argc, char **argv)
       flag_auto_scan = 1;
 
    /* Setup syslog */
-   setlogmask (LOG_UPTO (LOG_NOTICE));
    openlog ("netdiscover", LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
 
    /* Start the execution */
